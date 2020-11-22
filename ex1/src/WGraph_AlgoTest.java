@@ -1,3 +1,5 @@
+
+
 import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
@@ -72,7 +74,13 @@ class WGraph_AlgoTest {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+
         weighted_graph g1 = WGraph_DSTest.graph_creator(10,30,1);
+        WGraph_DS test0 = (WGraph_DS)g0;
+        WGraph_DS test1 = (WGraph_DS)g1;
+
+        assertEquals(test0,test1);
+
         ag0.load(str);
         assertEquals(g0,g1);
         g0.removeNode(0);

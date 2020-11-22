@@ -1,5 +1,4 @@
 import java.util.*;
-import java.util.Comparator;
 import java.io.Serializable;
 
 public class WGraph_DS implements weighted_graph, Serializable {
@@ -7,7 +6,7 @@ public class WGraph_DS implements weighted_graph, Serializable {
     private  int MC = 0;
     private int edge_size = 0;
     private int node_size = 0;
-    private HashMap<Integer,nodeData> nodes = new HashMap<Integer, node_inf>();
+    private HashMap<Integer,nodeData> nodes = new HashMap<Integer, nodeData>();
     private HashMap<Integer,HashMap<Integer, Double>> edges = new HashMap<Integer,HashMap<Integer, Double>>();
 
 
@@ -60,7 +59,20 @@ public class WGraph_DS implements weighted_graph, Serializable {
 //
 //        }
 //    }
-
+    @Override
+     public boolean equals(java.lang.Object g){
+        WGraph_DS temp = (WGraph_DS)g;
+        if (this.nodeSize() != temp.nodeSize() || this.getMC() != temp.getMC() || this.edge_size != temp.edge_size){
+            return false;
+        }
+        if(! this.getV().equals(temp.getV())){
+            return false;
+        }
+        if(! this.edges.equals(temp.edges)){
+            return false;
+        }
+        return true;
+     }
     @Override
     /**
      * this method return the node by given key.
@@ -170,7 +182,9 @@ public class WGraph_DS implements weighted_graph, Serializable {
     @Override
     public Collection<node_info> getV() {
 
-        return this.nodes.values();
+        ArrayList<node_info> ans = new ArrayList<node_info>();
+        ans.addAll(this.nodes.values());
+        return ans;
     }
 
     @Override
@@ -277,7 +291,16 @@ public class WGraph_DS implements weighted_graph, Serializable {
 
             return str;
         }
-        @Override
+@Override
+    public boolean equals(java.lang.Object g){
+            nodeData n=(nodeData)g;
+            if(this.getKey() != n.getKey() || !this.getInfo().equals(n.getInfo()) || this.getTag() != n.getTag()){
+                return false;
+            }
+          return true;
+        }
+
+            @Override
         /**
          * this method return the id of this node.
          */
