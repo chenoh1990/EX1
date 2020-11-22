@@ -9,11 +9,18 @@ public class WGraph_DS implements weighted_graph, Serializable {
     private HashMap<Integer,nodeData> nodes = new HashMap<Integer, nodeData>();
     private HashMap<Integer,HashMap<Integer, Double>> edges = new HashMap<Integer,HashMap<Integer, Double>>();
 
-
+    /**
+     * default constructor.
+     */
     public WGraph_DS(){
 
     }
 
+    /**
+     *
+     * this method perform a deep copy for a given Wgraph_DS.
+     * @param wg
+     */
     public WGraph_DS (WGraph_DS wg){
 
         for (node_info i : wg.getV()){
@@ -40,25 +47,7 @@ public class WGraph_DS implements weighted_graph, Serializable {
     return this.edges.get(key).keySet();
     }
 
-//    public String toString (){
-//
-//        String str = "";
-//        str +=  "mc: " + this.getMC();
-//        str += "/n num of nodes: " + this.node_size;
-//        str += "/n num of edges: " + this.edge_size;
-//        str += "/n nodes: ";
-//
-//        for (node_info i : this.getV()){
-//
-//            nodeData temp = (nodeData) i;
-//            str += " /n " + i.toString();
-//        }
-//        str += " /n edges: ";
-//
-//        for(node_info i : this.getV()){
-//
-//        }
-//    }
+
     @Override
      public boolean equals(java.lang.Object g){
         WGraph_DS temp = (WGraph_DS)g;
@@ -180,6 +169,9 @@ public class WGraph_DS implements weighted_graph, Serializable {
     }
 
     @Override
+    /**
+     * this method making a shallow copy for a collection of all nodes that include in graph.
+     */
     public Collection<node_info> getV() {
 
         ArrayList<node_info> ans = new ArrayList<node_info>();
@@ -188,6 +180,11 @@ public class WGraph_DS implements weighted_graph, Serializable {
     }
 
     @Override
+    /**
+     * This method returns a Collection of all the nodes connected to node_id.
+     *
+     * @param: node_id (int).
+     */
     public Collection<node_info> getV(int node_id) {
 
         Collection<node_info> ans = new ArrayList<>();
@@ -206,6 +203,11 @@ public class WGraph_DS implements weighted_graph, Serializable {
     }
 
     @Override
+    /**
+     * this method remove node by a given node key.
+     *
+     * @param: key (int).
+     */
     public node_info removeNode(int key) {
 
         node_info temp = this.nodes.get(key);
@@ -226,6 +228,12 @@ public class WGraph_DS implements weighted_graph, Serializable {
     }
 
     @Override
+    /**
+     * this method remove edge by given two nodes key's.
+     *
+     * @param: node1 (int).
+     * @param: node2 (int).
+     */
     public void removeEdge(int node1, int node2) {
 
         if(node1 == node2) return;
@@ -240,18 +248,27 @@ public class WGraph_DS implements weighted_graph, Serializable {
     }
 
     @Override
+    /**
+     *this methid return the node size.
+     */
     public int nodeSize() {
 
         return node_size;
     }
 
     @Override
+    /**
+     * this method return the edge size.
+     */
     public int edgeSize() {
 
         return this.edge_size;
     }
 
     @Override
+    /**
+     * this method return the number of all changes that made in graph.
+     */
     public int getMC() {
 
         return this.MC;
@@ -264,7 +281,11 @@ public class WGraph_DS implements weighted_graph, Serializable {
         private String info;
         private Double tag;
 
-
+        /**
+         * copy constructor.
+         *
+         * @param nd
+         */
         public nodeData(nodeData nd){
 
             this.key = nd.getKey();
@@ -279,6 +300,7 @@ public class WGraph_DS implements weighted_graph, Serializable {
             this.info = "";
             this.tag = -1.0;
         }
+
         public int compareTo(nodeData node2){
             if(Double.parseDouble(this.getInfo())>Double.parseDouble(node2.getInfo())) return 1;
             if(Double.parseDouble(this.getInfo())<Double.parseDouble(node2.getInfo())) return -1;
@@ -291,9 +313,16 @@ public class WGraph_DS implements weighted_graph, Serializable {
 
             return str;
         }
-@Override
+    @Override
+    /**
+     * this method built as an auxiliary function to compare two objects.
+     * if the objects are equal - return true.
+     * if the objects are not equal - return false.
+     */
     public boolean equals(java.lang.Object g){
+
             nodeData n=(nodeData)g;
+
             if(this.getKey() != n.getKey() || !this.getInfo().equals(n.getInfo()) || this.getTag() != n.getTag()){
                 return false;
             }
@@ -302,7 +331,7 @@ public class WGraph_DS implements weighted_graph, Serializable {
 
             @Override
         /**
-         * this method return the id of this node.
+         * this method return the key of this node.
          */
         public int getKey() {
 
@@ -319,6 +348,11 @@ public class WGraph_DS implements weighted_graph, Serializable {
         }
 
         @Override
+        /**
+         * this method set the node info to a given string.
+         *
+         * @param: string s.
+         */
         public void setInfo(String s) {
 
             this.info = s;
@@ -334,6 +368,11 @@ public class WGraph_DS implements weighted_graph, Serializable {
         }
 
         @Override
+        /**
+         * this method set the tag value to a given double.
+         *
+         * @param: double t.
+         */
         public void setTag(double t) {
 
             this.tag = t;
