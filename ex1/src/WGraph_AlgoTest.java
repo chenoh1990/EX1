@@ -35,6 +35,26 @@ class WGraph_AlgoTest {
         ag0.init(g0);
         boolean b = ag0.isConnected();
         assertTrue(b);
+        weighted_graph g1 = new WGraph_DS();
+        for(int i=0; i<10;i++){
+                g1.addNode(i);
+        }
+        for(int i=0; i<10;i++){
+            for (int j=0;j<10;j++){
+                g1.connect(i,j,i+j);
+            }
+        }
+        ag0.init(g1);
+        assertTrue(ag0.isConnected());
+        for(int i=0;i<10;i++){
+            g1.removeEdge(0,i);
+        }
+        assertFalse(ag0.isConnected());
+        g1.connect(0,6,6);
+        assertTrue(ag0.isConnected());
+        g1.removeEdge(0,6);
+        g1.removeNode(6);
+        assertFalse(ag0.isConnected());
     }
 
     @Test
@@ -45,6 +65,35 @@ class WGraph_AlgoTest {
         assertTrue(ag0.isConnected());
         double d = ag0.shortestPathDist(0,10);
         assertEquals(d, 5.1);
+        weighted_graph g1=new WGraph_DS();
+        for(int i=0; i<7; i++){
+            g1.addNode(i);
+        }
+
+        g1.connect(0,3,1);
+        g1.connect(0,2,2);
+        g1.connect(0,1,3);
+        g1.connect(0,6,4.1);
+        g1.connect(1,6,3);
+        g1.connect(2,3,2);
+        g1.connect(3,4,1);
+        g1.connect(4,5,1);
+        g1.connect(5,6,1);
+        weighted_graph_algorithms ag1= new WGraph_Algo();
+
+        ag1.init(g1);
+        assertEquals(4,ag1.shortestPathDist(0,6));
+       // assertEquals(4,ag0.shortestPathDist(6,0));
+        g1.addNode(7);
+        for (node_info n :ag1.shortestPath(0,7) ) {
+            System.out.print( n.getKey() + " --> ");
+        }
+        System.out.println();
+
+        assertEquals(-1,ag1.shortestPathDist(0,7));
+        g1.connect(0,3,0.5);
+        assertEquals(4.1,ag1.shortestPathDist(0,6));
+
     }
 
     @Test
@@ -61,6 +110,35 @@ class WGraph_AlgoTest {
             assertEquals(n.getKey(), checkKey[i]);
             i++;
         }
+        weighted_graph g1=new WGraph_DS();
+        for(int j=0; j<7; j++){
+            g1.addNode(j);
+        }
+        ag0.init(g1);
+        g1.connect(0,3,1);
+        g1.connect(0,2,2);
+        g1.connect(0,1,3);
+        g1.connect(0,6,4.1);
+        g1.connect(1,6,3);
+        g1.connect(2,3,2);
+        g1.connect(3,4,1);
+        g1.connect(4,5,1);
+        g1.connect(5,6,1);
+        sp=ag0.shortestPath(0,6);
+
+        assertEquals(0,sp.get(0).getKey());
+        assertEquals(3,sp.get(1).getKey());
+        assertEquals(4,sp.get(2).getKey());
+        assertEquals(5,sp.get(3).getKey());
+        assertEquals(6,sp.get(4).getKey());
+
+        g1.addNode(7);
+        sp=ag0.shortestPath(0,7);
+        assertEquals(0,sp.size());
+        g1.connect(0,3,0.5);
+        sp=ag0.shortestPath(0,6);
+        assertEquals(0,sp.get(0).getKey());
+        assertEquals(3,sp.get(1).getKey());
     }
 
     @Test

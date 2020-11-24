@@ -54,13 +54,14 @@ public class WGraph_Algo implements weighted_graph_algorithms{
 public void dijkstra (int src){
 
     Queue<node_info> Unvisited = new LinkedList<>();
-
+    for(node_info i :this.g.getV()){
+        i.setTag(-1);
+        i.setInfo("");
+    }
     for(node_info i :this.g.getV()) {
-
         if (i.getKey() != src) {
             i.setTag(Integer.MAX_VALUE);
             i.setInfo("No Path");
-            Unvisited.add(i);
         }
         else{
             i.setTag(0);
@@ -69,20 +70,17 @@ public void dijkstra (int src){
         }
     }
     while(!Unvisited.isEmpty()){
-
         node_info temp =  Unvisited.poll();
         double Spath_tempdis = temp.getTag();
-
+        System.out.println("tag: "+ this.g.getNode(7).getTag());
         for (int i :this.g.getNI(temp.getKey())){
-
             node_info node = this.g.getNode(i);
             double Spath_idis = node.getTag();
             double w = this.g.getEdge(node.getKey(),temp.getKey());
-
             if(Spath_idis > Spath_tempdis+w){
-
                 node.setTag(Spath_tempdis+w);
                 node.setInfo(temp.getInfo()+"->"+node.getKey());
+                Unvisited.add(node);
             }
         }
     }
@@ -142,13 +140,16 @@ public void dijkstra (int src){
         if (this.g.getNode(src) == null || this.g.getNode(dest) == null ){
             return -1;
         }
+        System.out.println("*******************************************************************************");
+
         this.dijkstra(src);
         double ans = this.g.getNode(dest).getTag();
-
         for(node_info i :this.g.getV()){
             i.setTag(-1);
             i.setInfo("");
         }
+        System.out.println(ans +" path+ " + this.shortestPath(src,dest).size());
+        System.out.println("*******************************************************************************");
         return ans;
     }
 

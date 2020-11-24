@@ -43,7 +43,6 @@ public class WGraph_DS implements weighted_graph, Serializable {
 
     public Set<Integer> getNI(int key){
     if(nodes.get(key)==null||this.edges.get(key)==null) return new HashSet<Integer>();
-
     return this.edges.get(key).keySet();
     }
 
@@ -127,6 +126,7 @@ public class WGraph_DS implements weighted_graph, Serializable {
             return;
         }
         this.nodes.put(key, new nodeData(key));
+
         MC++;
         node_size++;
 
@@ -279,7 +279,7 @@ public class WGraph_DS implements weighted_graph, Serializable {
 
         private int key;
         private String info;
-        private Double tag;
+        private Double tag=-1.0;
 
         /**
          * copy constructor.
@@ -294,6 +294,10 @@ public class WGraph_DS implements weighted_graph, Serializable {
 
         }
 
+        /**
+         *
+         * @param key
+         */
         public nodeData(int key){
 
             this.key = key;
@@ -306,6 +310,10 @@ public class WGraph_DS implements weighted_graph, Serializable {
             if(Double.parseDouble(this.getInfo())<Double.parseDouble(node2.getInfo())) return -1;
             return 0; //if its equal
         }
+
+        /**
+         *this method takes all nodeData params and return string of all params and their values.
+         */
         public String toString (){
             String str = "key: " + this.getKey();
             str += " info: " + this.getInfo();
